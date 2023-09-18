@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, ref, toRaw, onBeforeUnmount } from 'vue'
+import { onMounted, ref, toRaw, onBeforeUnmount, computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
+const clientName = computed(() => usePage().props.clientName)
 var intervalLines = null
 const lines = ref(null)
 const fetchLines = () => {
@@ -22,7 +24,7 @@ onBeforeUnmount(() => {
 </script>
 <template>
     <div class="flex justify-center">
-        <h1 class="mt-2 mb-2 font-bold text-4xl">:<span class="ml-1">:</span> library_client <span class="mr-1">:</span>:</h1>
+        <h1 class="mt-2 mb-4 font-bold text-4xl">:<span class="ml-1">:</span> {{ clientName }} <span class="mr-1">:</span>:</h1>
     </div>
     <div class="flex justify-center">
         <table class="bg-zinc-50 border border-zinc-500">
