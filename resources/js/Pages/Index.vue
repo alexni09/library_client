@@ -3,7 +3,6 @@ import { onMounted, ref, toRaw, onBeforeUnmount, computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 const clientName = computed(() => usePage().props.clientName)
-console.log(clientName)
 var intervalLines = null
 const lines = ref(null)
 const fetchLines = () => {
