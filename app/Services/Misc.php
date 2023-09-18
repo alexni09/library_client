@@ -21,7 +21,7 @@ class Misc {
     }
 
     public static function list_message():array {
-        return Redis::lrange(self::LIST_METHOD,0,-1);
+        return Redis::lrange(self::LIST_MESSAGE,0,-1);
     }
 
     public static function list_status():array {
