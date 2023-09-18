@@ -34,7 +34,7 @@ class FetchRandomBooks extends Command {
             $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
-        $message = 'Returned ' . count($response->json()['data']) . ' books from category #' . $rnd . '.';
+        $message = 'Listed ' . count($response->json()['data']) . ' books from category #' . $rnd . '.';
         Misc::monitor($this->signature, $message, $response->status());
         $this->info($message);
         return 0;
