@@ -54,7 +54,7 @@ class UserGiveback extends Command {
         $access_token = $response1->json('access_token');
         Misc::monitor($this->signature, 'Successfully logged in user #' . $user->id . '.', $response1->status());
         $exemplar_id = $borrowing->exemplar_id;
-        $response2 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
+        $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
         if ($response2->status() !== 200) {
             Misc::monitor($this->signature, 'Giveback failed.', $response2->status());
             $this->error('Giveback failed with status code: ' . $response2->status() . '.');
