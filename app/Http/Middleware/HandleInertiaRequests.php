@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware {
             'auth' => [
                 'user' => $request->user()
             ],
-            'clientName' => env('APP_NAME', 'library_client'),
+            'clientName' => 'library_client #1',
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
