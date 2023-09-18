@@ -31,7 +31,7 @@ class FetchRandomBooks extends Command {
         $response = Http::get(env('LIBRARY_API_URL') . '/api/books-by-category/' . $rnd);
         if ($response->status() !== 200) {
             Misc::monitor($this->signature, 'Failed.', $response->status());
-            $this->error('Fetch failed with status code: ' . $response->data() . '.');
+            $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
         $message = 'Returned ' . count($response->json()['data']) . ' books from category #' . $rnd . '.';

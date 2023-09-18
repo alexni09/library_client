@@ -27,7 +27,7 @@ class FetchCount extends Command {
     public function handle() {
         $response = Http::get(env('LIBRARY_API_URL') . '/api/count/');
         if ($response->status() !== 200) {
-            $this->error($this->signature . ': Fetch failed with status code: ' . $response->data() . '.');
+            $this->error($this->signature . ': Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
         Redis::set('category_count', $response->json()['data']['category_count']);
