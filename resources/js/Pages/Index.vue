@@ -28,7 +28,7 @@ onBeforeUnmount(() => {
         <table class="bg-zinc-50 border border-zinc-500">
             <tr>
                 <th class="p-1 bg-zinc-300 font-semibold border-b border-zinc-500 whitespace-nowrap">When ?</th>
-                <th class="thStyle">Coomand</th>
+                <th class="thStyle">Command</th>
                 <th class="thStyle">Message</th>
                 <th class="thStyle">Status</th>
             </tr>
