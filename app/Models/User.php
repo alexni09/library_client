@@ -44,4 +44,5 @@ class User extends Authenticatable {
 
     /* Relationships */
     public function borrowings() { return $this->hasMany(Borrowing::class); }
+    public function invoices() { return $this->hasMany(Invoice::class); }
 }
