@@ -32,7 +32,7 @@ class FetchRandomBooks extends Command {
             $this->error('Fetch failed with status code: ' . $response->data() . '.');
             return -1;
         }
-        $this->info('Returned ' . count($response->data()['data']) . ' books in category #' . $rnd . '.');
+        $this->info('Returned ' . count($response->json()['data']) . ' books in category #' . $rnd . '.');
         return 0;
     }
 }
