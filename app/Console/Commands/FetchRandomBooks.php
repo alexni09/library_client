@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Http;
+use App\Services\Misc;
 
 class FetchRandomBooks extends Command {
     /**
@@ -29,10 +30,13 @@ class FetchRandomBooks extends Command {
         $rnd = rand(1, $category_count);
         $response = Http::get(env('LIBRARY_API_URL') . '/api/books-by-category/' . $rnd);
         if ($response->status() !== 200) {
+            Misc::monitor($this->signature, 'Failed.', $response->status());
             $this->error('Fetch failed with status code: ' . $response->data() . '.');
             return -1;
         }
-        $this->info('Returned ' . count($response->json()['data']) . ' books in category #' . $rnd . '.');
+        $message = 'Returned ' . count($response->json()['data']) . ' books in category #' . $rnd . '.';
+        Misc::monitor($this->signature, $message, $response->status());
+        $this->info($message);
         return 0;
     }
 }
