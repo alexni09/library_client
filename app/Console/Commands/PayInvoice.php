@@ -56,9 +56,9 @@ class PayInvoice extends Command {
             $this->error('Listing open values failed with status code: ' . $response2->status() . '.');
             return -1;
         }
-        $exemplar_id = intval($response2->json['data'][0]->exemplar_id);
-        $due_value = intval($response2->json['data'][0]->due_value);
-        $payment_id = intval($response2->json['data'][0]->id);
+        $exemplar_id = intval($response2->json()['data'][0]->exemplar_id);
+        $due_value = intval($response2->json()['data'][0]->due_value);
+        $payment_id = intval($response2->json()['data'][0]->id);
         Misc::monitor($this->signature, 'Successfully located the payment to be made.', $response2->status());
         $response3 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
             'money' => $due_value
