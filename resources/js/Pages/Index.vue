@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
             </tr>
         </table>
     </div>
-    <div class="h-72" />
+    <div class="h-24" />
 </template>
 <style lang="postcss" scoped>
 .tdStyle {
