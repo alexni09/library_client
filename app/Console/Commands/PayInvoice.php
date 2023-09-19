@@ -62,6 +62,20 @@ class PayInvoice extends Command {
         $due_value = intval($response2->json()['data'][0]['due_value']);
         $payment_id = intval($response2->json()['data'][0]['id']);
         Misc::monitor($this->signature, 'Successfully located the payment to be made.', $response2->status());
+        if (rand(1,10) < 5) {   /* 40% chance at an attempt to underpay. */
+            $other_value = ceil($due_value * rand(20,90) / 100);
+            $responseUnderpay = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
+                'money' => $other_value
+            ]);
+            if ($responseUnderpay->status() === 422) {
+                Misc::monitor($this->signature, 'Attempt at underpayment has failed.', $responseUnderpay->status());
+                $this->error('Attempt at underpayment has failed with status code: ' . $responseUnderpay->status() . '.');
+            } else if ($responseUnderpay->status() === 200) {
+                Misc::monitor($this->signature, 'Attempt at underpayment has succeeded!', $responseUnderpay->status());
+                $this->error('Attempt at underpayment has succeeded! (' . $responseUnderpay->status() . ').');
+                return 0;
+            }
+        }
         $response3 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
             'money' => $due_value
         ]);
