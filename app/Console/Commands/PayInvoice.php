@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use App\Services\Misc;
 use App\Models\User;
 use App\Models\Invoice;
+use Illuminate\Support\Facades\DB;
 
 class PayInvoice extends Command {
     /**
@@ -51,6 +52,7 @@ class PayInvoice extends Command {
         $access_token = $response1->json('access_token');
         Misc::monitor($this->signature, 'Successfully logged in user #' . $user->id . '.', $response1->status());
         $response2 = Http::withToken($access_token)->get(env('LIBRARY_API_URL') . '/api/list-balance-due-open/');
+        if ($response2->status() === 204) DB::table('invoices')->where('user_id', $user->id)->delete();
         if ($response2->status() !== 200) {
             Misc::monitor($this->signature, 'Listing open values failed.', $response2->status());
             $this->error('Listing open values failed with status code: ' . $response2->status() . '.');
