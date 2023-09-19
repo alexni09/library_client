@@ -10,7 +10,6 @@ class Misc {
     const LIST_DATETIME = 'list_datetime';
     const LIST_MESSAGE = 'list_message';
     const LIST_STATUS = 'list_status';
-    const MAX_MONITORED_LINES = 120;
 
     public static function list_command():array {
         return Redis::lrange(self::LIST_COMMAND,0,-1);
@@ -35,11 +34,11 @@ class Misc {
         Redis::lpush(self::LIST_DATETIME,strval(Carbon::now()));
         Redis::lpush(self::LIST_MESSAGE,$message);
         Redis::lpush(self::LIST_STATUS,strval($status));
-        if ($l > self::MAX_MONITORED_LINES) {
-            Redis::rpop(self::LIST_COMMAND, $l - self::MAX_MONITORED_LINES);
-            Redis::rpop(self::LIST_DATETIME, $l - self::MAX_MONITORED_LINES);
-            Redis::rpop(self::LIST_MESSAGE, $l - self::MAX_MONITORED_LINES);
-            Redis::rpop(self::LIST_STATUS, $l - self::MAX_MONITORED_LINES);
+        if ($l > env('MAX_MONITORED_LINES',120)) {
+            Redis::rpop(self::LIST_COMMAND, $l - env('MAX_MONITORED_LINES',120));
+            Redis::rpop(self::LIST_DATETIME, $l - env('MAX_MONITORED_LINES',120));
+            Redis::rpop(self::LIST_MESSAGE, $l - env('MAX_MONITORED_LINES',120));
+            Redis::rpop(self::LIST_STATUS, $l - env('MAX_MONITORED_LINES',120));
         }
         Redis::exec();
     }
