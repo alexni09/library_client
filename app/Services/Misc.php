@@ -10,7 +10,7 @@ class Misc {
     const LIST_DATETIME = 'list_datetime';
     const LIST_MESSAGE = 'list_message';
     const LIST_STATUS = 'list_status';
-    const MAX_MONITORED_LINES = 30;
+    const MAX_MONITORED_LINES = 120;
 
     public static function list_command():array {
         return Redis::lrange(self::LIST_COMMAND,0,-1);
