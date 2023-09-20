@@ -41,7 +41,7 @@ onBeforeUnmount(() => {
             'font-amarante': fontNumber === 11,
             'font-sharetech': fontNumber === 12,
             'font-iceland': fontNumber === 13,
-            'font-genos': fontNumber === 14
+            'font-genos text-xl': fontNumber === 14
         }">
         <div class="flex justify-center">
             <h1 class="mt-2 mb-4 font-bold text-4xl">:<span class="ml-1">:</span> {{ clientName }} <span class="mr-1">:</span>:</h1>
