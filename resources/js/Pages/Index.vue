@@ -77,12 +77,6 @@ onBeforeUnmount(() => {
     </div>
 </template>
 <style lang="postcss" scoped>
-.tdStyleOne {
-    @apply px-1 border-l border-zinc-500;
-}
-.tdStyleTwo {
-    @apply px-1 border-l border-slate-500;
-}
 .thStyleOne {
     @apply p-1 bg-zinc-300 font-semibold border-l border-b border-zinc-500;
 }

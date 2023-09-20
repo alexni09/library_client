@@ -1,13 +1,13 @@
 {
   "resources/js/Pages/Index.css": {
-    "file": "assets/Index-28c40620.css",
+    "file": "assets/Index-577a65b9.css",
     "src": "resources/js/Pages/Index.css"
   },
   "resources/js/Pages/Index.vue": {
     "css": [
-      "assets/Index-28c40620.css"
+      "assets/Index-577a65b9.css"
     ],
-    "file": "assets/Index-f66ae760.js",
+    "file": "assets/Index-2f701e7e.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -25,7 +25,7 @@
     "dynamicImports": [
       "resources/js/Pages/Index.vue"
     ],
-    "file": "assets/app-6b59c7f8.js",
+    "file": "assets/app-6d9c2a76.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
