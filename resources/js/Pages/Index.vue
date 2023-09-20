@@ -37,7 +37,7 @@ onBeforeUnmount(() => {
             'font-khand': fontNumber === 7,
             'font-voltaire': fontNumber === 8,
             'font-mirza': fontNumber === 9,
-            'font-geo': fontNumber === 10,
+            'font-geo text-xl': fontNumber === 10,
             'font-amarante': fontNumber === 11,
             'font-sharetech': fontNumber === 12,
             'font-iceland': fontNumber === 13,
