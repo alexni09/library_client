@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
                     <td v-if="styleNumber === 1" class="tdStyleOne">{{ line.command }}</td>
                     <td v-if="styleNumber === 2" class="tdStyleTwo">{{ line.command }}</td>
                     <td v-if="styleNumber === 1" class="tdStyleOne">{{ line.message }}</td>
-                    <td v-if="styleNumber === 2" class="tdStyletwo">{{ line.message }}</td>
+                    <td v-if="styleNumber === 2" class="tdStyleTwo">{{ line.message }}</td>
                     <td v-if="styleNumber === 1" class="tdStyleOne">{{ line.status }}</td>
                     <td v-if="styleNumber === 2" class="tdStyleTwo">{{ line.status }}</td>
                 </tr>
