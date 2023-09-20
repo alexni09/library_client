@@ -66,8 +66,8 @@ onBeforeUnmount(() => {
                     <td class="px-1 whitespace-nowrap">{{ dayjs(line.datetime + '+00:00').format('YYYY/MM/DD HH:mm:ss') }}</td>
                     <td v-if="styleNumber === 1" class="px-1 border-l border-zinc-500">{{ line.command }}</td>
                     <td v-if="styleNumber === 2" class="px-1 border-l border-slate-500">{{ line.command }}</td>
-                    <td v-if="styleNumber === 1" class="px-1 w-[480px] border-l border-zinc-500">{{ line.message }}</td>
-                    <td v-if="styleNumber === 2" class="px-1 w-[480px] border-l border-slate-500">{{ line.message }}</td>
+                    <td v-if="styleNumber === 1" class="px-1 w-[540px] border-l border-zinc-500">{{ line.message }}</td>
+                    <td v-if="styleNumber === 2" class="px-1 w-[540px] border-l border-slate-500">{{ line.message }}</td>
                     <td v-if="styleNumber === 1" class="px-1 border-l border-zinc-500">{{ line.status }}</td>
                     <td v-if="styleNumber === 2" class="px-1 border-l border-slate-500">{{ line.status }}</td>
                 </tr>
