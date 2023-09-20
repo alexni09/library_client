@@ -18,3 +18,4 @@ yarn-error.log
 /.vscode
 /cron_jobs.txt
 /some_fonts.txt
+/chosen_styles.txt
