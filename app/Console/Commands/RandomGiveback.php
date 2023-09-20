@@ -56,14 +56,19 @@ class RandomGiveback extends Command {
         if (rand(1,100) > 0) {
             $responseExemplar = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/' . $exemplar_id);
             if ($responseExemplar->status() !== 200) {
-                Misc::monitor($this->signature, 'Failed retieving information of exemplar #' . $exemplar_id . '.', $responseExemplar->status());
-                $this->error('Failed retieving information of exemplar #' . $exemplar_id . '. Status code: ' . $responseExemplar->status() . '.');
+                Misc::monitor($this->signature, 'Failed retrieving information of exemplar #' . $exemplar_id . '.', $responseExemplar->status());
+                $this->error('Failed retrieving information of exemplar #' . $exemplar_id . '. Status code: ' . $responseExemplar->status() . '.');
                 return -1;
             }
             $condition = intval($responseExemplar['data']['condition_value']);
             $this->line('exemplar #' . $exemplar_id . ', condition #' . $condition);
+            if ($condition < 4) $condition++;     /*   just got worse :-(   */
+            $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id, [
+                'condition' => $condition
+            ]);
+        } else {
+            $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
         }
-        $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
         if ($response2->status() !== 200) {
             Misc::monitor($this->signature, 'Giveback failed.', $response2->status());
             $this->error('Giveback failed with status code: ' . $response2->status() . '.');
