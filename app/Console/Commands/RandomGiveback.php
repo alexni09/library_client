@@ -53,7 +53,7 @@ class RandomGiveback extends Command {
         $access_token = $response1->json('access_token');
         Misc::monitor($this->signature, 'Successfully logged in user #' . $user->id . '.', $response1->status());
         $exemplar_id = $borrowing->exemplar_id;
-        if (rand(1,100) > 0) {
+        if (rand(1,100) <= 3) {   /*   3% chance of returning that exemplar in a worse shape. (If not damaged already..)   */
             $responseExemplar = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/' . $exemplar_id);
             if ($responseExemplar->status() !== 200) {
                 Misc::monitor($this->signature, 'Failed retrieving information of exemplar #' . $exemplar_id . '.', $responseExemplar->status());
@@ -61,7 +61,6 @@ class RandomGiveback extends Command {
                 return -1;
             }
             $condition = intval($responseExemplar['data']['condition_value']);
-            $this->line('exemplar #' . $exemplar_id . ', condition #' . $condition);
             if ($condition < 4) $condition++;     /*   just got worse :-(   */
             $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id, [
                 'condition' => $condition
