@@ -10,35 +10,35 @@ use App\Models\Borrowing;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
 
-class UserGiveback extends Command {
+class RandomGiveback extends Command {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:user-giveback';
+    protected $signature = 'app:random-giveback';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Registered user gives back an exemplar.';
+    protected $description = 'An already registered user logs in and returns an exemplar.';
 
     /**
      * Execute the console command.
      */
     public function handle() {
-        $borrowing = Borrowing::first();
+        $borrowing = Borrowing::orderByRaw('rand()')->first();
         if (!$borrowing) {
-            Misc::monitor($this->signature, 'Giveback failed. None found!', 404);
-            $this->error('Giveback failed. None found! (404)');
+            Misc::monitor($this->signature, 'Giveback failed. Borrowing not found!', 404);
+            $this->error('Giveback failed. Borrowing not found! (404)');
             return -1;
         }
         $user = User::find($borrowing->user_id);
         if (!$user) {
-            Misc::monitor($this->signature, 'Giveback failed. User not found!', 422);
-            $this->error('Giveback failed. User not found! (422)');
+            Misc::monitor($this->signature, 'Giveback failed. User not found!', 404);
+            $this->error('Giveback failed. User not found! (404)');
             return -1;
         }
         $response1 = Http::post(env('LIBRARY_API_URL') . '/api/auth/login', [
@@ -74,7 +74,7 @@ class UserGiveback extends Command {
             return -1;
         }
         Misc::monitor($this->signature, 'Successfully logged out.', $response3->status());
-        $this->info('Successfully found a user which has an exemplar borrowed; returned that exemplar and then logged out.');
+        $this->info('Successfully logged in an existing user; who gave back an exemplar and then logged out.');
         return 0;
     }
 }
