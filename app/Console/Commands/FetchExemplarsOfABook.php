@@ -26,7 +26,6 @@ class FetchExemplarsOfABook extends Command {
      * Execute the console command.
      */
     public function handle() {
-        sleep(9+rand(0,3));
         $book_count = Redis::get('book_count');
         $rnd = rand(1, $book_count);
         $condition = rand(1,4);
