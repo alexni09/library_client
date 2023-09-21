@@ -40,7 +40,9 @@ class FetchExemplarsOfABook extends Command {
             $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
-        $message = 'Fetched ' . count($response->json()['data']) . ' exemplars from book #' . $rnd . ', condition #' . $condition  . '.';
+        $count = count($response->json()['data']);
+        $s = $count === 1 ? '' : 's';
+        $message = 'Fetched ' . $count . ' exemplar' . $s . ' from book #' . $rnd . ', condition #' . $condition  . '.';
         Misc::monitor($this->signature, $message, $response->status());
         $this->info($message);
         return 0;
