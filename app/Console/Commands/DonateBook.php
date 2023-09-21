@@ -66,7 +66,7 @@ class DonateBook extends Command {
             $this->error('Donation failed with status code: ' . $response3->status() . '.');
             return -1;
         }
-        Misc::monitor($this->signature, 'Successfully donated book from category #' . $category_id . 
+        Misc::monitor($this->signature, 'Successfully donated a book from category #' . $category_id . 
             ', book #' . $response3->json()['data']['book_id'] . '.', $response3->status());
         $response4 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
         if ($response4->status() !== 204) {
