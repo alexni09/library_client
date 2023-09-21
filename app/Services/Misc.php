@@ -30,9 +30,9 @@ class Misc {
     public static function monitor(string $command, string $message, int $status):void {
         $l = 1 + intval(Redis::llen(self::LIST_COMMAND));
         Redis::multi();
-        Redis::lpush(self::LIST_COMMAND,$command);
+        Redis::lpush(self::LIST_COMMAND,substr($command,4));
         Redis::lpush(self::LIST_DATETIME,strval(Carbon::now()));
-        Redis::lpush(self::LIST_MESSAGE,substr($message,4));
+        Redis::lpush(self::LIST_MESSAGE,$message);
         Redis::lpush(self::LIST_STATUS,strval($status));
         if ($l > env('MAX_MONITORED_LINES',120)) {
             Redis::rpop(self::LIST_COMMAND, $l - env('MAX_MONITORED_LINES',120));
