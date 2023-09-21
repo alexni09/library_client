@@ -20,7 +20,7 @@ class FetchExemplarsOfABook extends Command {
      *
      * @var string
      */
-    protected $description = 'Fetches exemplars of a random book, given the parameters.';
+    protected $description = 'Fetches exemplars of a random book, given the condition parameter.';
 
     /**
      * Execute the console command.
@@ -28,13 +28,18 @@ class FetchExemplarsOfABook extends Command {
     public function handle() {
         $book_count = Redis::get('book_count');
         $rnd = rand(1, $book_count);
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/list/' . $rnd, '?condition=' . rand(2,4) );
-        if ($response->status() !== 200) {
+        $condition = rand(1,4);
+        $response = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/list/' . $rnd, '?condition=' . $condition );
+        if ($response->status() === 204) {
+            Misc::monitor($this->signature, 'No borrowable exemplars for book #' . $rnd .  ', condition #' . $condition . '.', $response->status());
+            $this->error('No borrowable exemplars for book #' . $rnd .  ', condition #' . $condition . '. Status code: ' . $response->status() . '.');
+            return 0;
+        } else if ($response->status() !== 200) {
             Misc::monitor($this->signature, 'Failed.', $response->status());
             $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
-        $message = 'Fetched ' . count($response->json()['data']) . ' exemplars from book #' . $rnd . '.';
+        $message = 'Fetched ' . count($response->json()['data']) . ' exemplars from book #' . $rnd . ', condition #' . $condition  . '.';
         Misc::monitor($this->signature, $message, $response->status());
         $this->info($message);
         return 0;
