@@ -64,12 +64,12 @@ onBeforeUnmount(() => {
                 <tr v-for="line in lines" :key="line.id" 
                     :class="{ 'bg-zinc-200': styleNumber === 1 && line.id % 6 > 2, 'bg-slate-200': styleNumber === 2 && line.id % 6 > 2 }">
                     <td class="px-1 w-48 whitespace-nowrap">{{ dayjs(line.datetime + '+00:00').format('YYYY/MM/DD HH:mm:ss') }}</td>
-                    <td v-if="styleNumber === 1" class="px-1 w-60 border-l border-zinc-500">{{ line.command }}</td>
-                    <td v-if="styleNumber === 2" class="px-1 w-60 border-l border-slate-500">{{ line.command }}</td>
-                    <td v-if="styleNumber === 1" class="px-1 w-[510px] border-l border-zinc-500">{{ line.message }}</td>
-                    <td v-if="styleNumber === 2" class="px-1 w-[510px] border-l border-slate-500">{{ line.message }}</td>
-                    <td v-if="styleNumber === 1" class="px-1 w-20 border-l border-zinc-500">{{ line.status }}</td>
-                    <td v-if="styleNumber === 2" class="px-1 w-20 border-l border-slate-500">{{ line.status }}</td>
+                    <td class="px-1 w-60 border-l" 
+                        :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.command }}</td>
+                    <td class="px-1 w-[510px] border-l"
+                        :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.message }}</td>
+                    <td class="px-1 w-20 border-l"
+                        :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.status }}</td>
                 </tr>
             </table>
         </div>
