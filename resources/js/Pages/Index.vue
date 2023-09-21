@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
                     <td class="px-1 w-48 whitespace-nowrap">{{ dayjs(line.datetime + '+00:00').format('YYYY/MM/DD HH:mm:ss') }}</td>
                     <td class="px-1 w-60 border-l" 
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.command }}</td>
-                    <td class="px-1 w-[510px] border-l"
+                    <td class="px-1 w-[540px] border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.message }}</td>
                     <td class="px-1 w-20 border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.status }}</td>
@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
                     <td class="px-1 w-48 whitespace-nowrap">{{ dayjs(line.datetime + '+00:00').format('YYYY/MM/DD HH:mm:ss') }}</td>
                     <td class="px-1 w-60 border-l" 
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.command }}</td>
-                    <td class="px-1 w-[510px] border-l"
+                    <td class="px-1 w-[540px] border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.message }}</td>
                     <td class="px-1 w-20 border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.status }}</td>
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
                     <td class="px-1 w-48 whitespace-nowrap">{{ dayjs(line.datetime + '+00:00').format('YYYY/MM/DD HH:mm:ss') }}</td>
                     <td class="px-1 w-60 border-l" 
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.command }}</td>
-                    <td class="px-1 w-[510px] border-l"
+                    <td class="px-1 w-[540px] border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.message }}</td>
                     <td class="px-1 w-20 border-l"
                         :class="{'border-zinc-500': styleNumber === 1, 'border-slate-500': styleNumber === 2}">{{ line.status }}</td>
