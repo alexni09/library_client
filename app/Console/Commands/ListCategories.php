@@ -34,7 +34,7 @@ class ListCategories extends Command {
             $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
-        $message = 'Listed ' . count($response->json()['data']) . ' categories.';
+        $message = 'Listed ' . count($response->json()['data']) . ' categories, starting at #' . $response->json()['data'][0]['id'] . '.';
         Misc::monitor($this->signature, $message, $response->status());
         $this->info($message);
         return 0;
