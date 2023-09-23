@@ -5,13 +5,13 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class AttemptToFetchCount extends Command {
+class AttemptToFetchMoney extends Command {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:attempt-to-fetch-count';
+    protected $signature = 'app:attempt-to-fetch-money';
 
     /**
      * The console command description.
@@ -24,7 +24,7 @@ class AttemptToFetchCount extends Command {
      * Execute the console command.
      */
     public function handle() {
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/count/');
+        $response = Http::get(env('LIBRARY_API_URL') . '/api/money/');
         $this->info('Fetch returned the status code: ' . $response->status() . '.');
         return 0;
     }
