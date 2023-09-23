@@ -16,6 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/cron_jobs*.txt
-/some_fonts.txt
-/chosen_styles.txt
+chosen_styles.txt
+cron_jobs*.txt
+deployment_script.txt
+some_fonts.txt
