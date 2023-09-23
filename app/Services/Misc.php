@@ -11,6 +11,19 @@ class Misc {
     const LIST_MESSAGE = 'list_message';
     const LIST_STATUS = 'list_status';
 
+    public static function isRefererSafe(string|null $haystack):bool {
+        if (!isset($haystack)) return false;
+        $needleBase = rtrim(env('APP_URL'), '/');
+        if ($haystack === $needleBase) return true;
+        $needle = $needleBase . ':8000';
+        if ($haystack === $needle) return true;
+        $needle = $needleBase . '/';
+        if (substr_compare($haystack, $needle, 0, strlen($needle), true) === 0) return true;
+        $needle = $needleBase . ':8000/'; 
+        if (substr_compare($haystack, $needle, 0, strlen($needle), true) === 0) return true;
+        return false;
+    }
+
     public static function list_command():array {
         return Redis::lrange(self::LIST_COMMAND,0,-1);
     }
