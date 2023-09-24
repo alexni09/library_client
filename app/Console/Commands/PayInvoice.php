@@ -67,7 +67,7 @@ class PayInvoice extends Command {
             $responseUnderpay = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
                 'money' => $other_value
             ]);
-            if ($responseUnderpay->status() === 422) {
+            if ($responseUnderpay->status() === 402) {
                 Misc::monitor($this->signature, 'Attempt at underpayment has failed.', $responseUnderpay->status());
                 $this->error('Attempt at underpayment has failed with status code: ' . $responseUnderpay->status() . '.');
             } else if ($responseUnderpay->status() === 200) {

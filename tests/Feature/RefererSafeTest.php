@@ -19,5 +19,6 @@ class RefererSafeTest extends TestCase {
         $this->assertFalse(Misc::isRefererSafe(env('APP_URL') . 'abcd'));
         $this->assertTrue(Misc::isRefererSafe(env('APP_URL') . '/api/monitor'));
         $this->assertFalse(Misc::isRefererSafe(env('LIBRARY_API_URL') . '/api/books/1'));
+        $this->assertFalse(Misc::isRefererSafe('https://another.website/api/categories'));
     }
 }
