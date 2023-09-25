@@ -17,7 +17,7 @@ This project simulates a library where the user can list, borrow, return and pay
 
 This project includes the api, whose server is currently running on [libraryapi.site](https://libraryapi.site) [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F24fb8ea7-22a5-426a-bc25-5cef36e4a794&style=plastic)](https://forge.laravel.com/servers/717882/sites/2102467).
 
-This project also includes two clients, [genericapiclient.xyz](https://genericapiclient.xyz) [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F24fb8ea7-22a5-426a-bc25-5cef36e4a794&style=plastic)](https://forge.laravel.com/servers/717882/sites/2102467) and [genericapi.xyz](https://genericapi.xyz) [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F24fb8ea7-22a5-426a-bc25-5cef36e4a794&style=plastic)](https://forge.laravel.com/servers/717882/sites/2102467).
+This project also includes two clients, [genericapiclient.xyz](https://genericapiclient.xyz) [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F22fe928f-e3c0-4456-bf93-64c2371e260d&style=plastic)](https://forge.laravel.com/servers/718300/sites/2103797) and [genericapi.xyz](https://genericapi.xyz) [![Forge](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F56466715-45ed-4b58-a2f0-c17a992ba4b1&style=plastic)](https://forge.laravel.com/servers/719652/sites/2108875).
 
 The api documentation is available [here](https://libraryapi.site/docs/).
 
