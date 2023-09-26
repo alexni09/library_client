@@ -63,6 +63,18 @@ onBeforeUnmount(() => {
             <h1 class="mt-2 mb-4 font-bold text-4xl">:<span class="ml-1">:</span> {{ clientName }} <span class="mr-1">:</span>:</h1>
         </div>
         <div class="flex justify-center">
+            <p class="mb-4 w-[840px] font-medium">
+                This is a digital library with fictitious data. 
+                Its aim is to demonstrate the fastness and robustness of the api responses over a very big database.
+                <br>
+                The api server can be accessed <a href="https://libraryapi.site" target="_blank" class="underline">here</a>.
+                <br>
+                The api documentation can be accessed <a href="https://libraryapi.site/docs" target="_blank" class="underline">here</a>.
+                <br>
+                These are the latest api requests, in real time:
+            </p>
+        </div>
+        <div class="flex justify-center">
             <table :class="{'bg-zinc-50 border border-zinc-500': styleNumber === 1, 'bg-slate-50 border border-slate-500': styleNumber === 2}">
                 <tr>
                     <th class="p-1 font-semibold border-b whitespace-nowrap"
@@ -162,7 +174,19 @@ onBeforeUnmount(() => {
                 <div class="mt-0.5 font-black text-xs uppercase">Please support our sponsor.</div>
             </div>
         </div>
-        <div class="h-20" />
+        <div class="flex justify-center">
+            <p class="mt-3 w-[840px] text-sm font-medium italic">
+                This site is best wiewed on a larger screen, such as either from a laptop or desktop.
+            </p>
+        </div>
+        <div class="flex justify-center">
+            <p class="mt-1 w-[840px] text-sm font-medium italic">
+                Also, domain names may change anytime, so please check 
+                <a href="https://github.com/alexni09/library_client" target="_blank" class="underline">this github repository</a> 
+                to find out where this app is hosted or where it will be hosted next.
+            </p>
+        </div>
+        <div class="h-16" />
     </div>
 </template>
 <style lang="postcss" scoped>
