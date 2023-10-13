@@ -29,7 +29,7 @@ class FetchExemplarsOfABook extends Command {
         $book_count = Redis::get('book_count');
         $rnd = rand(1, $book_count);
         $condition = rand(1,4);
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/list/' . $rnd, '?condition=' . $condition );
+        $response = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/exemplars/list/' . $rnd, '?condition=' . $condition );
         if ($response->status() === 204) {
             Misc::monitor($this->signature, 'No borrowable exemplars for book #' . $rnd .  ', condition #' . $condition . '.', $response->status());
             $this->error('No borrowable exemplars for book #' . $rnd .  ', condition #' . $condition . '. Status code: ' . $response->status() . '.');

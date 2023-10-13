@@ -35,13 +35,13 @@ class DonateBook extends Command {
         }
         $category_count = Redis::get('category_count');
         $category_id = rand(1, $category_count);
-        $response1 = Http::get(env('LIBRARY_API_URL') . '/api/categories/' . $category_id );
+        $response1 = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/categories/' . $category_id );
         if ($response1->status() !== 200) {
             Misc::monitor($this->signature, 'Failed.', $response->status());
             $this->error('Fetch failed with status code: ' . $response->status() . '.');
             return -1;
         }
-        $response2 = Http::post(env('LIBRARY_API_URL') . '/api/auth/login', [
+        $response2 = Http::acceptJson()->post(env('LIBRARY_API_URL') . '/api/auth/login', [
             'email' => $user->email,
             'password' => env('DEFAULT_USER_PASSWORD', '12345678')
         ]);
@@ -55,7 +55,7 @@ class DonateBook extends Command {
         $book_name = fake()->text(30);
         $condition = rand(1,4);
         $rating = rand(1,5);
-        $response3 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/books/donate', [
+        $response3 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/books/donate', [
             'category_id' => $category_id,
             'name' => $book_name,
             'rating' => $rating,
@@ -68,7 +68,7 @@ class DonateBook extends Command {
         }
         Misc::monitor($this->signature, 'Successfully donated a book from category #' . $category_id . 
             ', book #' . $response3->json()['data']['book_id'] . '.', $response3->status());
-        $response4 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
+        $response4 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
         if ($response4->status() !== 204) {
             Misc::monitor($this->signature, 'Logout failed.', $response4->status());
             $this->error('Logout failed with status code: ' . $response4->status() . '.');

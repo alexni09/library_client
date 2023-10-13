@@ -41,7 +41,7 @@ class RandomGiveback extends Command {
             $this->error('Giveback failed. User not found! (404)');
             return -1;
         }
-        $response1 = Http::post(env('LIBRARY_API_URL') . '/api/auth/login', [
+        $response1 = Http::acceptJson()->post(env('LIBRARY_API_URL') . '/api/auth/login', [
             'email' => $user->email,
             'password' => env('DEFAULT_USER_PASSWORD', '12345678')
         ]);
@@ -54,7 +54,7 @@ class RandomGiveback extends Command {
         Misc::monitor($this->signature, 'Successfully logged in user #' . $user->id . '.', $response1->status());
         $exemplar_id = $borrowing->exemplar_id;
         if (rand(1,100) <= 3) {   /*   3% chance of returning that exemplar in a worse shape. (If not damaged already..)   */
-            $responseExemplar = Http::get(env('LIBRARY_API_URL') . '/api/exemplars/' . $exemplar_id);
+            $responseExemplar = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/exemplars/' . $exemplar_id);
             if ($responseExemplar->status() !== 200) {
                 Misc::monitor($this->signature, 'Failed retrieving information of exemplar #' . $exemplar_id . '.', $responseExemplar->status());
                 $this->error('Failed retrieving information of exemplar #' . $exemplar_id . '. Status code: ' . $responseExemplar->status() . '.');
@@ -62,11 +62,11 @@ class RandomGiveback extends Command {
             }
             $condition = intval($responseExemplar['data']['condition_value']);
             if ($condition < 4) $condition++;     /*   just got worse :-(   */
-            $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id, [
+            $response2 = Http::acceptJson()->withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id, [
                 'condition' => $condition
             ]);
         } else {
-            $response2 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
+            $response2 = Http::acceptJson()->withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/giveback/' . $exemplar_id);
         }
         if ($response2->status() !== 200) {
             Misc::monitor($this->signature, 'Giveback failed.', $response2->status());
@@ -81,7 +81,7 @@ class RandomGiveback extends Command {
         ]);
         DB::commit();
         Misc::monitor($this->signature, 'Successfully returned exemplar #' . $exemplar_id . '.', $response2->status());
-        $response3 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
+        $response3 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
         if ($response3->status() !== 204) {
             Misc::monitor($this->signature, 'Logout failed.', $response3->status());
             $this->error('Logout failed with status code: ' . $response3->status() . '.');

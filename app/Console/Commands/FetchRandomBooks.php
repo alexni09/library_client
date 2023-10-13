@@ -28,7 +28,7 @@ class FetchRandomBooks extends Command {
     public function handle() {
         $category_count = Redis::get('category_count');
         $rnd = rand(1, $category_count);
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/books-by-category/' . $rnd);
+        $response = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/books-by-category/' . $rnd);
         if ($response->status() !== 200) {
             Misc::monitor($this->signature, 'Failed.', $response->status());
             $this->error('Fetch failed with status code: ' . $response->status() . '.');

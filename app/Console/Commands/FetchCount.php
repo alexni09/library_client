@@ -25,7 +25,7 @@ class FetchCount extends Command {
      * Execute the console command.
      */
     public function handle() {
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/count/');
+        $response = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/count/');
         if ($response->status() !== 200) {
             $this->error($this->signature . ': Fetch failed with status code: ' . $response->status() . '.');
             return -1;

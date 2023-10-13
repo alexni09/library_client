@@ -24,7 +24,7 @@ class AttemptToFetchMoney extends Command {
      * Execute the console command.
      */
     public function handle() {
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/money/');
+        $response = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/money/');
         $this->info('Fetch returned the status code: ' . $response->status() . '.');
         return 0;
     }

@@ -40,7 +40,7 @@ class PayInvoice extends Command {
             $this->error('Pay invoice failed. User not found! (422)');
             return -1;
         }
-        $response1 = Http::post(env('LIBRARY_API_URL') . '/api/auth/login', [
+        $response1 = Http::acceptJson()->post(env('LIBRARY_API_URL') . '/api/auth/login', [
             'email' => $user->email,
             'password' => env('DEFAULT_USER_PASSWORD', '12345678')
         ]);
@@ -51,7 +51,7 @@ class PayInvoice extends Command {
         }
         $access_token = $response1->json('access_token');
         Misc::monitor($this->signature, 'Successfully logged in user #' . $user->id . '.', $response1->status());
-        $response2 = Http::withToken($access_token)->get(env('LIBRARY_API_URL') . '/api/list-balance-due-open/');
+        $response2 = Http::acceptJson()->withToken($access_token)->get(env('LIBRARY_API_URL') . '/api/list-balance-due-open/');
         if ($response2->status() === 204) DB::table('invoices')->where('user_id', $user->id)->delete();
         if ($response2->status() !== 200) {
             Misc::monitor($this->signature, 'Listing open values failed.', $response2->status());
@@ -64,7 +64,7 @@ class PayInvoice extends Command {
         Misc::monitor($this->signature, 'Successfully located the payment to be made.', $response2->status());
         if (rand(1,10) < 5) {   /* 40% chance at an attempt to underpay. */
             $other_value = ceil($due_value * rand(20,90) / 100);
-            $responseUnderpay = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
+            $responseUnderpay = Http::acceptJson()->withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
                 'money' => $other_value
             ]);
             if ($responseUnderpay->status() === 402) {
@@ -76,7 +76,7 @@ class PayInvoice extends Command {
                 return 0;
             }
         }
-        $response3 = Http::withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
+        $response3 = Http::acceptJson()->withToken($access_token)->patch(env('LIBRARY_API_URL') . '/api/pay/' . $payment_id, [
             'money' => $due_value
         ]);
         if ($response3->status() !== 200) {
@@ -87,7 +87,7 @@ class PayInvoice extends Command {
         $invoice2 = Invoice::where('user_id', $user->id)->where('exemplar_id', $exemplar_id)->first();
         if (isset($invoice2)) $invoice2->delete();
         Misc::monitor($this->signature, 'Successfully paid for borrowing exemplar #' . $exemplar_id . '.', $response3->status());
-        $response4 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
+        $response4 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
         if ($response4->status() !== 204) {
             Misc::monitor($this->signature, 'Logout failed.', $response4->status());
             $this->error('Logout failed with status code: ' . $response4->status() . '.');

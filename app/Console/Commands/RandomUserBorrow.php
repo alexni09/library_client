@@ -34,7 +34,7 @@ class RandomUserBorrow extends Command {
             $this->error('Borrowing failed. User not found! (404)');
             return -1;
         }
-        $response1 = Http::post(env('LIBRARY_API_URL') . '/api/auth/login', [
+        $response1 = Http::acceptJson()->post(env('LIBRARY_API_URL') . '/api/auth/login', [
             'email' => $user->email,
             'password' => env('DEFAULT_USER_PASSWORD', '12345678')
         ]);
@@ -48,7 +48,7 @@ class RandomUserBorrow extends Command {
         $n = rand(1,4);
         for ($i=0; $i<$n; $i++) {
             $exemplar_id = rand(1, intval(Redis::get('exemplar_count')));
-            $response2 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/borrow/' . $exemplar_id);
+            $response2 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/borrow/' . $exemplar_id);
             if ($response2->status() !== 201) {
                 Misc::monitor($this->signature, 'Borrowing failed.', $response2->status());
                 $this->error('Borrowing failed with status code: ' . $response2->status() . '.');
@@ -60,7 +60,7 @@ class RandomUserBorrow extends Command {
             ]);
             Misc::monitor($this->signature, 'Successfully borrowed exemplar #' . $exemplar_id . '.', $response2->status());
         }
-        $response3 = Http::withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
+        $response3 = Http::acceptJson()->withToken($access_token)->post(env('LIBRARY_API_URL') . '/api/auth/logout/');
         if ($response3->status() !== 204) {
             Misc::monitor($this->signature, 'Logout failed.', $response3->status());
             $this->error('Logout failed with status code: ' . $response3->status() . '.');
