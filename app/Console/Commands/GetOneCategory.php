@@ -30,7 +30,7 @@ class GetOneCategory extends Command {
         $min = intval($category_count * 0.5 + 0.5);
         $max = intval($category_count * 1.5);
         $rnd = rand($min, $max);
-        $response = Http::get(env('LIBRARY_API_URL') . '/api/categories/' . $rnd);
+        $response = Http::acceptJson()->get(env('LIBRARY_API_URL') . '/api/categories/' . $rnd);
         $message = 'List Category #' . $rnd . ': returned with status code ' . $response->status() . '.';
         Misc::monitor($this->signature, $message, $response->status());
         $this->info($message);
